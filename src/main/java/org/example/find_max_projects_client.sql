@@ -1,4 +1,4 @@
--- this SQL query will return the client with the largest number of projects
+-- this SQL query will  return the client with the largest number of projects
 SELECT w.*, project_count
 FROM worker w
 JOIN (
