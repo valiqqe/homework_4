@@ -1,0 +1,32 @@
+-- 1 step: Table for workers
+CREATE TABLE worker (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    NAME VARCHAR(1000) NOT NULL CHECK (LENGTH(NAME) >= 2),
+    BIRTHDAY DATE CHECK (YEAR(BIRTHDAY) > 1900),
+    LEVEL ENUM('Trainee', 'Junior', 'Middle', 'Senior') NOT NULL,
+    SALARY INT CHECK (SALARY >= 100 AND SALARY <= 100000)
+);
+
+-- 2 step: Table for clients:
+CREATE TABLE client (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    NAME VARCHAR(1000) NOT NULL CHECK (LENGTH(NAME) >= 2)
+);
+
+-- 3 step: Table for projects:
+CREATE TABLE project (
+    ID INT AUTO_INCREMENT PRIMARY KEY,
+    CLIENT_ID INT,
+    START_DATE DATE,
+    END_DATE DATE,
+    FOREIGN KEY (CLIENT_ID) REFERENCES client(ID)
+);
+
+-- 4 step: Table for project workers:
+CREATE TABLE project_worker (
+    PROJECT_ID INT,
+    WORKER_ID INT,
+    PRIMARY KEY (PROJECT_ID, WORKER_ID),
+    FOREIGN KEY (PROJECT_ID) REFERENCES project(ID),
+    FOREIGN KEY (WORKER_ID) REFERENCES worker(ID)
+);
